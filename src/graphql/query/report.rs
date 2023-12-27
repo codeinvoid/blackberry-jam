@@ -1,6 +1,6 @@
 use async_graphql::{Context, Object, Result};
 
-use crate::{prisma::PrismaClient, graphql::types::Report};
+use crate::{graphql::types::Report, prisma::PrismaClient};
 
 #[derive(Default)]
 pub struct ReportQuery;

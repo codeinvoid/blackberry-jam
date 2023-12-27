@@ -1,6 +1,6 @@
 use async_graphql::{Context, Object, Result};
 
-use crate::{prisma::PrismaClient, graphql::types::Banned};
+use crate::{graphql::types::Banned, prisma::PrismaClient};
 
 #[derive(Default)]
 pub struct BannedQuery;

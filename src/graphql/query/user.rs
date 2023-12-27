@@ -1,8 +1,8 @@
 use async_graphql::{Context, Object, Result};
 
 use crate::{
-    prisma::{user, PrismaClient},
     graphql::types::User,
+    prisma::{user, PrismaClient},
 };
 
 #[derive(Default)]

@@ -1,13 +1,12 @@
-use async_graphql::{Context, Result, SimpleObject, ComplexObject};
-use crate::prisma::{banned, user, PrismaClient, message, report, ReportType, ProgressType};
-
+use crate::prisma::{banned, message, report, user, PrismaClient, ProgressType, ReportType};
+use async_graphql::{ComplexObject, Context, Result, SimpleObject};
 
 #[derive(SimpleObject)]
 #[graphql(complex)]
 pub struct User {
     pub id: String,
     pub q_id: i64,
-    pub is_active: bool
+    pub is_active: bool,
 }
 
 #[ComplexObject]
@@ -70,7 +69,7 @@ pub struct Banned {
     pub user_id: String,
     pub reason: String,
     pub finish: i64,
-    pub processor: String
+    pub processor: String,
 }
 
 #[ComplexObject]
@@ -95,7 +94,7 @@ impl Into<Banned> for banned::Data {
             user_id: self.u_id,
             reason: self.reason,
             finish: self.finish,
-            processor: self.processor
+            processor: self.processor,
         }
     }
 }
@@ -105,7 +104,7 @@ impl Into<Banned> for banned::Data {
 pub struct Message {
     id: String,
     content: String,
-    user_id: String
+    user_id: String,
 }
 
 #[ComplexObject]

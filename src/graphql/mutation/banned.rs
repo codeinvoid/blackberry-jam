@@ -1,8 +1,8 @@
 use async_graphql::{Context, InputObject, Object, Result};
 
 use crate::{
-    prisma::{user, PrismaClient},
     graphql::types::Banned,
+    prisma::{user, PrismaClient},
 };
 
 // I normally separate the input types into separate files/modules, but this is just
@@ -14,7 +14,7 @@ pub struct CreateBannedInput {
     pub user_id: String,
     pub reason: String,
     pub finish: i64,
-    pub processor: String
+    pub processor: String,
 }
 
 #[derive(Default)]
@@ -22,12 +22,23 @@ pub struct BannedMutation;
 
 #[Object]
 impl BannedMutation {
-    pub async fn create_banned(&self, ctx: &Context<'_>, input: CreateBannedInput) -> Result<Banned> {
+    pub async fn create_banned(
+        &self,
+        ctx: &Context<'_>,
+        input: CreateBannedInput,
+    ) -> Result<Banned> {
         let db = ctx.data::<PrismaClient>().unwrap();
 
         let created = db
             .banned()
-            .create(input.is_active, input.reason, input.finish, input.processor, user::id::equals(input.user_id), vec![])
+            .create(
+                input.is_active,
+                input.reason,
+                input.finish,
+                input.processor,
+                user::id::equals(input.user_id),
+                vec![],
+            )
             .exec()
             .await?;
 
