@@ -1,0 +1,37 @@
+[package]
+name = "blackberry-jam"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = { version = "0.7.2", features = ["tracing", "default"] }
+serde = { version = "1.0.193", features = ["derive"] }
+serde_json = "1.0.108"
+tokio = { version = "1.35.1", features = ["full"] }
+tower = "0.4.13"
+tower-http = { version = "0.5.0", features = ["trace"] }
+tracing = "0.1.40"
+tracing-appender = "0.2"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+futures = "0.3"
+prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.10", features = [
+    "postgresql",
+    "migrations",
+] }
+prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.10", features = [
+    "postgresql",
+    "migrations",
+] }
+async-graphql = { version = "6.0.11", features = [
+    "chrono",
+]}
+async-graphql-axum = "6.0.11"
+chrono = "0.4.31"
+
+[patch.crates-io]
+async-graphql = { git = "https://github.com/async-graphql/async-graphql", rev = "44ae983", features = [
+    "chrono",
+] }
+async-graphql-axum = { git = "https://github.com/async-graphql/async-graphql", rev = "44ae983" }

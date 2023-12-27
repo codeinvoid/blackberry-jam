@@ -1,0 +1,10 @@
+/target
+/src/prisma.rs
+/logs
+
+.DS_Store
+Desktop.ini
+._*
+Thumbs.db
+.Spotlight-V100
+.Trashes

@@ -1,0 +1,67 @@
+datasource db {
+    provider = "cockroachdb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "cargo prisma"
+    output   = "../src/prisma.rs"
+}
+
+// 玩家基本数据
+model User {
+    id        String       @id
+    qId       BigInt    @unique
+    isActive  Boolean
+    createdAt DateTime  @default(now())
+    banneds   Banned[]  @relation(name: "Banned")
+    messages  Message[]
+    report    Report[]
+}
+
+// 封禁部分
+model Banned {
+    id       String       @id @default(uuid())
+    isActive Boolean
+    reason   String
+    time     DateTime  @default(now())
+    finish   BigInt
+    processor String // 处理人
+    user     User      @relation(name: "Banned", fields: [uId], references: [id])
+    uId      String
+}
+
+// 反馈部分
+model Report {
+    id          String       @id @default(uuid())
+    type        ReportType
+    title       String
+    progress    ProgressType
+    reason      String
+    report_name String?
+    User        User         @relation(fields: [uId], references: [id])
+    uId         String
+}
+
+enum ReportType {
+    REPORT
+    ADVICE
+    BUG
+}
+
+enum ProgressType {
+    SUBMIT
+    PROCESS
+    REJECT
+    ACCEPT
+    FINISH
+}
+
+// 消息部分
+model Message {
+    id      String       @id @default(uuid())
+    time    DateTime @default(now())
+    content String
+    User    User     @relation(fields: [uId], references: [id])
+    uId     String
+}
